@@ -68,7 +68,7 @@ const SettingsScreen = () => {
     <View>
       <List.Section title="Privacy Settings">
         <List.Accordion
-          title="Enable pin"
+          title="Enable advanced privacy features"
           left={(props) => <List.Icon {...props} icon="shield-key-outline" />}
           right={(props) => (
             <Switch value={privacyEnabled} color={colors.primary} />
@@ -95,7 +95,7 @@ const SettingsScreen = () => {
           ) : null}
         </List.Accordion>
       </List.Section>
-      <Dialog visible={showDialog} title={steps[currentStep]} >
+      <Dialog visible={showDialog} title={steps[currentStep]}>
         <PinForm
           style={styles.form}
           onValueChanged={(value) => {
