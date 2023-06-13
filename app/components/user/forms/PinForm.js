@@ -12,6 +12,7 @@ import { screenWidth } from "../../../utils/contants";
 import { ActivityIndicator, IconButton } from "react-native-paper";
 import { useSettinsContext } from "../../../context/hooks";
 import _ from "lodash";
+import useLocalAuth from "../../../hooks/useLocalAuth";
 
 const keys = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 
@@ -21,11 +22,13 @@ const PinForm = ({
   onPinComplete,
   error,
   style,
+  hasFingerPrint,
 }) => {
   const digits = _.range(1, length + 1);
   const [pin, setPin] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const { authenticate } = useLocalAuth();
+  const { pin: userPin } = useSettinsContext();
   const handleKeyPress = (key) => {
     setPin([...pin, key]);
     if (onValueChanged instanceof Function) {
@@ -37,6 +40,16 @@ const PinForm = ({
     const pin1 = [...pin];
     pin1.pop();
     setPin(pin1);
+  };
+
+  const handleFingerPrintUnlock = async () => {
+    if (await authenticate()) {
+      const p = JSON.stringify(userPin);
+      setPin([...p]);
+      if (onValueChanged instanceof Function) {
+        onValueChanged(p);
+      }
+    }
   };
 
   useEffect(() => {
@@ -84,6 +97,13 @@ const PinForm = ({
           onPress={handleBackSpace}
           disabled={loading}
         />
+        {hasFingerPrint ? (
+          <IconButton
+            icon="fingerprint"
+            onPress={handleFingerPrintUnlock}
+            disabled={loading}
+          />
+        ) : null}
       </View>
       <View style={styles.keyBoard}>
         {keys.map((key) => (

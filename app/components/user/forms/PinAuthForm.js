@@ -17,7 +17,7 @@ const digits = [1, 2, 3, 4];
 const keys = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 
 const PinAuthForm = () => {
-  const { authenticate } = useSettinsContext();
+  const { authenticate, useFingerprint } = useSettinsContext();
   const [error, setError] = useState(null);
 
   return (
@@ -31,6 +31,7 @@ const PinAuthForm = () => {
         }}
         error={error}
         onValueChanged={() => setError(null)}
+        hasFingerPrint={useFingerprint}
       />
     </>
   );

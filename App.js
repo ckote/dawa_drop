@@ -18,6 +18,7 @@ const App = () => {
       isAuthenticated: false,
       pin: null,
       enabled: false,
+      useBiometric: false,
     },
   });
   const [user, setUser] = useState();

@@ -12,7 +12,12 @@ export const useSettinsContext = () => {
   const { appConfiguration, setAppConfiguration, clearAppConfiguration } =
     useContext(SettingsContext);
   const { privacy } = appConfiguration;
-  const { pin, isAuthenticated, enabled } = privacy;
+  const {
+    pin,
+    isAuthenticated,
+    enabled,
+    useBiometric: useFingerprint,
+  } = privacy;
   const authenticate = (userPiin) => {
     setAppConfiguration({
       ...appConfiguration,
@@ -32,6 +37,16 @@ export const useSettinsContext = () => {
       },
     });
     return true;
+  };
+
+  const enableFingerprint = (enable) => {
+    setAppConfiguration({
+      ...appConfiguration,
+      privacy: {
+        ...privacy,
+        useBiometric: Boolean(enable),
+      },
+    });
   };
 
   const disablePin = (userPin) => {
@@ -60,5 +75,7 @@ export const useSettinsContext = () => {
     privacyEnabled: enabled,
     clearAppConfiguration,
     appConfiguration,
+    enableFingerprint,
+    useFingerprint,
   };
 };

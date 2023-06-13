@@ -7,11 +7,20 @@ import PinForm from "../../components/user/forms/PinForm";
 import Dialog from "../../components/dialog/Dialog";
 import { screenWidth } from "../../utils/contants";
 import AlertDialog from "../../components/dialog/AlertDialog";
+import * as LocalAuthentication from "expo-local-authentication";
+import useLocalAuth from "../../hooks/useLocalAuth";
 
 const steps = ["Create security pin", "Confirm Pin", "Please retry"];
 
 const SettingsScreen = () => {
-  const { enablePin, disablePin, privacyEnabled, pin } = useSettinsContext();
+  const {
+    enablePin,
+    disablePin,
+    privacyEnabled,
+    pin,
+    enableFingerprint,
+    useFingerprint,
+  } = useSettinsContext();
   const handleToggleEnablePrivacy = () => {
     if (privacyEnabled) {
       disablePin(1234);
@@ -22,6 +31,7 @@ const SettingsScreen = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [showDialog, setShowDialog] = useState(false);
   const [error, setError] = useState(null);
+  const { compatible, enabled, authenticate, fingerPrintOk } = useLocalAuth();
   const handeSetPin = () => {
     if (privacyEnabled) {
       Alert.alert("Confirm!", "Are you suire you wanna disable privacy", [
@@ -37,6 +47,7 @@ const SettingsScreen = () => {
       setShowDialog(true);
     }
   };
+
   useEffect(() => {
     if (currentStep === 2) {
       console.log("Gere");
@@ -65,10 +76,26 @@ const SettingsScreen = () => {
           expanded={privacyEnabled}
           onPress={handeSetPin}
         >
-          {/* <List.Item title="First item" />  */}
+          {console.log(useFingerprint)}
+          {fingerPrintOk ? (
+            <List.Item
+              title="Enable fingerprint Unlock"
+              right={(props) => (
+                <Switch
+                  value={Boolean(useFingerprint)}
+                  color={colors.primary}
+                  onValueChange={async (value) => {
+                    if (await authenticate()) {
+                      enableFingerprint(value);
+                    }
+                  }}
+                />
+              )}
+            />
+          ) : null}
         </List.Accordion>
       </List.Section>
-      <Dialog visible={showDialog} title={steps[currentStep]}>
+      <Dialog visible={showDialog} title={steps[currentStep]} >
         <PinForm
           style={styles.form}
           onValueChanged={(value) => {
