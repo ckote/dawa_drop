@@ -145,7 +145,11 @@ const HomeScreen = ({ navigation }) => {
             Dawa Drop, delivering medicine to your door step.
           </Text>
         </View>
-        <RewardsCards rewards={awardRewards} backgroundColor={colors.white} />
+        <ProgrameCards
+          awardPrograms={awardPrograms}
+          backgroundColor={colors.primary}
+        />
+
         <View style={styles.middleContainer}>
           <List.Item
             onPress={() => setShowModal(true)}
@@ -164,11 +168,8 @@ const HomeScreen = ({ navigation }) => {
             )}
           />
         </View>
+        <RewardsCards rewards={awardRewards} backgroundColor={colors.white} />
 
-        <ProgrameCards
-          awardPrograms={awardPrograms}
-          backgroundColor={colors.primary}
-        />
         <View style={styles.order}>
           <TouchableOpacity
             style={styles.orderBtn}
