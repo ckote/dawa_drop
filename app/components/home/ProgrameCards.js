@@ -51,10 +51,13 @@ const ProgrameCards = ({ awardPrograms, backgroundColor = colors.light }) => {
                   <Text variant="titleMedium" style={styles.title}>
                     {name}
                   </Text>
+                  {/* <View style={styles.devidor} /> */}
                   <Text style={styles.text}>{members_count} Members</Text>
-                  <Text style={styles.text}>Ksh.{point_rate} Rate</Text>
                   <Text style={styles.text}>
-                    {unit_point} points award
+                    Ksh.{point_rate} currency Rate
+                  </Text>
+                  <Text style={styles.text}>
+                    {unit_point} points award per order
                   </Text>
                 </View>
               </View>
@@ -70,17 +73,20 @@ export default ProgrameCards;
 
 const styles = StyleSheet.create({
   programImage: {
-    height: screenWidth * 0.1,
+    height: screenWidth * 0.15,
+    width: screenWidth * 0.15,
+    alignSelf: "center",
   },
   programesContainer: {
     // padding: 10,
   },
   programeCard: {
     // height: screenWidth * 0.35,
-    width: screenWidth * 0.3,
+    width: screenWidth * 0.7,
     margin: 5,
     borderRadius: 30,
-    padding: 5,
+    padding: 15,
+    flexDirection: "row",
   },
   devidor: {
     borderWidth: 1,
@@ -88,27 +94,26 @@ const styles = StyleSheet.create({
     borderColor: colors.medium,
   },
   title: {
-    color: colors.medium,
+    color: colors.white,
     textAlign: "center",
     fontWeight: "bold",
+    fontSize: 25,
   },
   text: {
-    color: colors.medium,
-    fontSize: 12,
+    color: colors.white,
     textAlign: "center",
   },
   header: {
     paddingHorizontal: 20,
     fontWeight: "bold",
     paddingTop: 5,
-    color: colors.white,
   },
   container: {
-    backgroundColor: colors.primary,
+    // backgroundColor: colors.primary,
     borderRadius: 40,
     marginHorizontal: 10,
     marginBottom: 10,
-    padding: 10,
+    // padding: 10,
   },
   row: {
     flexDirection: "row",

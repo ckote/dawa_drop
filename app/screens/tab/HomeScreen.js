@@ -167,7 +167,7 @@ const HomeScreen = ({ navigation }) => {
 
         <ProgrameCards
           awardPrograms={awardPrograms}
-          backgroundColor={colors.white}
+          backgroundColor={colors.primary}
         />
         <View style={styles.order}>
           <TouchableOpacity
