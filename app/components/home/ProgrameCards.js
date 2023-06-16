@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     fontWeight: "bold",
     paddingTop: 5,
-    color: colors.medium
+    color: colors.medium,
   },
   container: {
     // backgroundColor: colors.primary,

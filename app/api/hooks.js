@@ -39,6 +39,12 @@ export const useUser = () => {
         "Content-Type": "multipart/form-data",
       },
     });
+  const sycnAccountData = (token) =>
+    apiClient.get(
+      "users/pre-fill-details/",
+      {},
+      { headers: getAuthHeader(token) }
+    );
   const putUserInfo = ({ url, token, data, multipart = false }) => {
     if (multipart) {
       return apiClient.put(url, data, {
@@ -106,19 +112,19 @@ export const useUser = () => {
   const getPayments = (token, params) =>
     apiClient.get("payments/", params, { headers: getAuthHeader(token) });
   const getAppointments = (token, params) =>
-    apiClient.get("patients/appointments/", params, {
+    apiClient.get("appointments/", params, {
       headers: getAuthHeader(token),
     });
   const getPrescriptions = (token, params) =>
-    apiClient.get("patients/prescriptions/", params, {
+    apiClient.get("medications/", params, {
       headers: getAuthHeader(token),
     });
   const getTriads = (token, params) =>
-    apiClient.get("patients/triads/", params, {
+    apiClient.get("medications/triads/", params, {
       headers: getAuthHeader(token),
     });
   const getTestResults = (token, params) =>
-    apiClient.get("patients/test-results/", params, {
+    apiClient.get("medications/test-results/", params, {
       headers: getAuthHeader(token),
     });
   return {
@@ -144,14 +150,16 @@ export const useUser = () => {
     postOrder,
     checkoutDelivery,
     getPendingOrders,
+    sycnAccountData,
   };
 };
 
 export const useHospital = () => {
-  const getAwardPrograms = (params) => apiClient.get("awards/", params);
-  const getAwardRewards = (params) => apiClient.get("awards/rewards/", params);
+  const getAwardPrograms = (params) => apiClient.get("programs/", params);
+  const getAwardRewards = (params) =>
+    apiClient.get("programs/rewards/", params);
   const getClinics = (params) => apiClient.get("facilities/");
-  const getAppointmentTypes = (params) => apiClient.get("appointment-types/");
+  const getAppointmentTypes = (params) => apiClient.get("appointments/types/");
   const getDeliveryModes = (params) => apiClient.get("deliver-mode/");
   const getDeliveryTimeSlots = (params) =>
     apiClient.get("delivery-time-slots/");

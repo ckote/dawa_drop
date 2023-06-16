@@ -1,10 +1,5 @@
-import { StyleSheet, View, Platform, Modal, Alert } from "react-native";
+import { StyleSheet, View, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
-import {
-  AppForm,
-  AppFormField,
-  AppFormSubmitButton,
-} from "../../components/forms";
 import moment from "moment";
 import { List, Text } from "react-native-paper";
 import Logo from "../../components/Logo";
@@ -13,19 +8,9 @@ import { useHospital, useUser } from "../../api/hooks";
 import { useUserContext } from "../../context/hooks";
 import routes from "../../navigation/routes";
 
-import * as Yup from "yup";
-import AppFormItemListPicker from "../../components/forms/AppFormItemListPicker";
 import { screenWidth } from "../../utils/contants";
-import LocationPicker from "../../components/order/LocationPicker";
 import OrderForm from "../../components/order/OrderForm";
 import AlertDialog from "../../components/dialog/AlertDialog";
-const validationSchemer = Yup.object().shape({
-  delivery_mode: Yup.string().label("Delivery Mode").required(),
-  time_slot: Yup.string().label("Delivery Time Slot").required(),
-  reach_out_phone_number: Yup.string().label("Phone Number").required(),
-  latitude: Yup.number().label("Latitude").required(),
-  longitude: Yup.number().label("Longitude").required(),
-});
 
 const OrderScreen = ({ navigation, route }) => {
   const order = route.params;
@@ -113,6 +98,8 @@ const OrderScreen = ({ navigation, route }) => {
     latitude: order ? order.latitude : undefined,
     longitude: order ? order.longitude : undefined,
   };
+
+  console.log(prescription);
 
   return (
     <View>

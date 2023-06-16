@@ -11,6 +11,10 @@ import FindAccountScreen from "../screens/user/FindAccountScreen";
 import AppointMentsScreen from "../screens/user/AppointMentsScreen";
 import PrescriptionsScreen from "../screens/user/PrescriptionsScreen";
 import SettingsScreen from "../screens/user/SettingsScreen";
+import { IconButton } from "react-native-paper";
+import { useUser } from "../api/hooks";
+import { useUserContext } from "../context/hooks";
+import { Alert } from "react-native";
 
 const Stack = createStackNavigator();
 
@@ -18,6 +22,26 @@ const Navigator = Stack.Navigator;
 const Screen = Stack.Screen;
 
 const UserNavigation = () => {
+  const { getUser, sycnAccountData } = useUser();
+  const { token } = useUserContext();
+  const handleSync = async () => {
+    const response = await sycnAccountData(token);
+    await getUser(true);
+    if (response.ok) {
+      Alert.alert("Success", response.data.detail);
+    } else {
+      if (response.status === 403) {
+        Alert.alert("Failure", response.data.detail);
+      }
+    }
+  };
+  const handlePromptConfirmation = async () => {
+    Alert.alert(
+      "Confirmation!",
+      "Are you sure you want to sync you data with your medical records?",
+      [{ text: "Sync", onPress: handleSync }, { text: "Cancel" }]
+    );
+  };
   return (
     <Navigator>
       <Screen
@@ -28,7 +52,12 @@ const UserNavigation = () => {
       <Screen
         name={routes.PROFILE_VIEW_SCREEN}
         component={ProfileViewScreen}
-        options={{ title: "Information Center" }}
+        options={{
+          title: "Information Center",
+          headerRight: (...props) => (
+            <IconButton icon="sync" onPress={handlePromptConfirmation} />
+          ),
+        }}
       />
       <Screen
         name={routes.PROGRAM_DETAIL_SCREEN}

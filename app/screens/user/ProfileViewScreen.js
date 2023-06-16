@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { toSectionListData } from "../../utils/helpers";
 import colors from "../../utils/colors";
 import { ScrollView } from "react-native";
-import { IconButton, List } from "react-native-paper";
+import { FAB, IconButton, List } from "react-native-paper";
 import UserTypeProfileInformation from "../../components/user/UserTypeProfileInformation";
 import IconText from "../../components/display/IconText";
 import routes from "../../navigation/routes";
@@ -27,72 +27,74 @@ const ProfileViewScreen = ({ navigation, route }) => {
   const { [user_type]: userType } = user_type_information;
 
   return (
-    <ScrollView>
-      <View style={styles.titleRow}>
-        <Text style={styles.title}>account information</Text>
-        <IconText
-          icon="square-edit-outline"
-          size={20}
-          onPress={() =>
-            navigation.navigate(routes.FORMS_NAVIGATION, {
-              screen: routes.FORMS_ACCOUNT_FORM,
-              params: account_information,
-            })
-          }
+    <View style={styles.screen}>
+      <ScrollView>
+        <View style={styles.titleRow}>
+          <Text style={styles.title}>account information</Text>
+          <IconText
+            icon="square-edit-outline"
+            size={20}
+            onPress={() =>
+              navigation.navigate(routes.FORMS_NAVIGATION, {
+                screen: routes.FORMS_ACCOUNT_FORM,
+                params: account_information,
+              })
+            }
+          />
+        </View>
+        <List.Item
+          title="Name"
+          titleStyle={styles.listTitle}
+          description={name ? name : "None"}
+          style={styles.item}
         />
-      </View>
-      <List.Item
-        title="Name"
-        titleStyle={styles.listTitle}
-        description={name ? name : "None"}
-        style={styles.item}
-      />
-      <List.Item
-        title="Email"
-        titleStyle={styles.listTitle}
-        description={email ? email : "None"}
-        style={styles.item}
-      />
-      <View style={styles.titleRow}>
-        <Text style={styles.title}>profile information</Text>
-        <IconText
-          icon="square-edit-outline"
-          size={20}
-          onPress={() =>
-            navigation.navigate(routes.FORMS_NAVIGATION, {
-              screen: routes.FORMS_PROFILE_FORM,
-              params: profile_information,
-            })
-          }
+        <List.Item
+          title="Email"
+          titleStyle={styles.listTitle}
+          description={email ? email : "None"}
+          style={styles.item}
         />
-      </View>
-      <List.Item
-        title="Gender"
-        titleStyle={styles.listTitle}
-        description={gender ? gender : "None"}
-        style={styles.item}
-      />
-      <List.Item
-        title="Phone Number"
-        titleStyle={styles.listTitle}
-        description={phone_number ? phone_number : "None"}
-        style={styles.item}
-      />
-      <List.Item
-        title="Address"
-        titleStyle={styles.listTitle}
-        description={address ? address : "None"}
-        style={styles.item}
-      />
-      <View style={styles.titleRow}>
-        <Text style={styles.title}>{user_type} information</Text>
-        {/* <IconText icon="square-edit-outline" size={20} /> */}
-      </View>
-      <UserTypeProfileInformation
-        userTypeString={user_type}
-        userTypeObject={userType}
-      />
-    </ScrollView>
+        <View style={styles.titleRow}>
+          <Text style={styles.title}>profile information</Text>
+          <IconText
+            icon="square-edit-outline"
+            size={20}
+            onPress={() =>
+              navigation.navigate(routes.FORMS_NAVIGATION, {
+                screen: routes.FORMS_PROFILE_FORM,
+                params: profile_information,
+              })
+            }
+          />
+        </View>
+        <List.Item
+          title="Gender"
+          titleStyle={styles.listTitle}
+          description={gender ? gender : "None"}
+          style={styles.item}
+        />
+        <List.Item
+          title="Phone Number"
+          titleStyle={styles.listTitle}
+          description={phone_number ? phone_number : "None"}
+          style={styles.item}
+        />
+        <List.Item
+          title="Address"
+          titleStyle={styles.listTitle}
+          description={address ? address : "None"}
+          style={styles.item}
+        />
+        <View style={styles.titleRow}>
+          <Text style={styles.title}>{user_type} information</Text>
+          {/* <IconText icon="square-edit-outline" size={20} /> */}
+        </View>
+        <UserTypeProfileInformation
+          userTypeString={user_type}
+          userTypeObject={userType}
+        />
+      </ScrollView>
+    </View>
   );
 };
 
@@ -117,5 +119,8 @@ const styles = StyleSheet.create({
   },
   listTitle: {
     color: colors.medium,
+  },
+  screen: {
+    flex: 1,
   },
 });

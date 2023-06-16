@@ -49,6 +49,7 @@ const FindAccountScreen = ({ navigation }) => {
               phone_number,
               request_verification_url,
               patient_number,
+              has_account,
             } = item;
             return (
               <Card style={styles.listItem} elevation={0} key={index}>
@@ -72,6 +73,8 @@ const FindAccountScreen = ({ navigation }) => {
                         onPress={async () =>
                           await handleInitVerification(request_verification_url)
                         }
+                        disabled={Boolean(has_account)===true}
+                        color={has_account ? colors.primary : colors.medium}
                       />
                     </>
                   )}
