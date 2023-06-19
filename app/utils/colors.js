@@ -3,6 +3,7 @@ export default {
   secondary: "#54F7F4",
   light: "#D4FFFE",
   light1: "#ECF7F7",
+  light2: "#E1EDED",
   medium: "#AAC8C8",
   background: "#F0FFFF",
   white: "#fff",
@@ -11,5 +12,6 @@ export default {
   success: "#A6D71C",
   danger: "#FF1616",
   transparent: "#FFFF0000",
-  warning: "yellow"
+  warning: "yellow",
+  gold: "gold",
 };

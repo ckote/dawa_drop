@@ -22,6 +22,7 @@ import { Modal } from "react-native";
 import NearHopitals from "../../components/home/NearHopitals";
 import { StatusBar } from "expo-status-bar";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import LoyaltyPointsCard from "../../components/home/LoyaltyPointsCard";
 
 const HomeScreen = ({ navigation }) => {
   const { user } = useUserContext();
@@ -145,10 +146,7 @@ const HomeScreen = ({ navigation }) => {
             Dawa Drop, delivering medicine to your door step.
           </Text>
         </View>
-        <ProgrameCards
-          awardPrograms={awardPrograms}
-          backgroundColor={colors.primary}
-        />
+        <LoyaltyPointsCard />
 
         <View style={styles.middleContainer}>
           <List.Item
@@ -160,15 +158,19 @@ const HomeScreen = ({ navigation }) => {
               <List.Icon
                 icon="hospital-building"
                 {...props}
-                color={colors.white}
+                color={colors.primary}
               />
             )}
             right={(props) => (
-              <List.Icon icon="chevron-right" {...props} color={colors.white} />
+              <List.Icon
+                icon="chevron-right"
+                {...props}
+                color={colors.primary}
+              />
             )}
           />
         </View>
-        <RewardsCards rewards={awardRewards} backgroundColor={colors.white} />
+        <RewardsCards rewards={awardRewards} backgroundColor={colors.light2} />
 
         <View style={styles.order}>
           <TouchableOpacity
@@ -238,26 +240,26 @@ const styles = StyleSheet.create({
     color: colors.light1,
   },
   screen: {
-    backgroundColor: colors.light1,
+    backgroundColor: colors.light2,
     flex: 1,
   },
   headecontainer: {
     backgroundColor: colors.primary,
     // flex: 1,
-    borderRadius: 40,
+    borderRadius: 20,
     marginHorizontal: 10,
     marginBottom: 10,
     padding: 10,
   },
   middleContainer: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.white,
     marginHorizontal: 10,
     marginBottom: 10,
     padding: 10,
-    borderRadius: 40,
+    borderRadius: 20,
   },
   listTitle: {
-    color: colors.white,
+    color: colors.primary,
     fontWeight: "bold",
   },
   avatar: { backgroundColor: colors.light },

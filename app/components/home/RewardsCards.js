@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     width: screenWidth * 0.2,
     margin: 5,
 
-    borderRadius: 20,
+    borderRadius: 8,
     padding: 5,
   },
   devidor: {
@@ -90,21 +90,21 @@ const styles = StyleSheet.create({
   title: {
     color: colors.medium,
     textAlign: "center",
-    // fontWeight: "bold",
+    fontWeight: "bold",
   },
   text: {
-    color: colors.medium,
+    color: colors.white,
     fontSize: 12,
   },
   header: {
     paddingHorizontal: 20,
     fontWeight: "bold",
     paddingTop: 5,
-    color: colors.white,
+    color: colors.primary,
   },
   container: {
-    backgroundColor: colors.primary,
-    borderRadius: 40,
+    backgroundColor: colors.white,
+    borderRadius: 20,
     marginHorizontal: 10,
     marginBottom: 10,
     padding: 10,

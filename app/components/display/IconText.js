@@ -58,5 +58,7 @@ export default IconText;
 const styles = StyleSheet.create({
   text: {
     marginHorizontal: 2,
+    textAlign: "center",
+    verticalAlign: "middle",
   },
 });
