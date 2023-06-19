@@ -1,10 +1,11 @@
 import { Image, StyleSheet, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import colors from "../../utils/colors";
 import { Text } from "react-native-paper";
 import IconText from "../display/IconText";
 
-const LoyaltyPointsCard = ({ points = 0, level = "Gold" }) => {
+const LoyaltyPointsCard = ({ points = 0, level = "None", tip = "" }) => {
+  const [awardPrograms, setAwardProgrames] = useState([]);
   return (
     <View style={styles.container}>
       <View style={[styles.row, { justifyContent: "space-between" }]}>
@@ -29,9 +30,7 @@ const LoyaltyPointsCard = ({ points = 0, level = "Gold" }) => {
           <Text variant="headlineLarge" style={styles.pointsText}>
             {points} points
           </Text>
-          <Text variant="bodyLarge" style={styles.text}>
-            Earn {points} more points to reach gold platinum
-          </Text>
+          <Text style={styles.text}>{tip}</Text>
         </View>
       </View>
     </View>

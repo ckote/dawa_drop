@@ -9,18 +9,14 @@ import {
 import React, { useEffect, useState } from "react";
 import AppSafeArea from "../../components/AppSafeArea";
 import { useHospital, useUser } from "../../api/hooks";
-import { Avatar, Card, IconButton, List, Text } from "react-native-paper";
+import { Avatar, IconButton, List, Text } from "react-native-paper";
 import { useUserContext } from "../../context/hooks";
 import colors from "../../utils/colors";
 import routes from "../../navigation/routes";
-import SearchHeader from "../../components/SearchHeader";
 import { screenWidth } from "../../utils/contants";
-import ProgrameCards from "../../components/home/ProgrameCards";
 import RewardsCards from "../../components/home/RewardsCards";
-import AdsConttainer from "../../components/home/AdsContainer";
 import { Modal } from "react-native";
 import NearHopitals from "../../components/home/NearHopitals";
-import { StatusBar } from "expo-status-bar";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import LoyaltyPointsCard from "../../components/home/LoyaltyPointsCard";
 
@@ -33,6 +29,8 @@ const HomeScreen = ({ navigation }) => {
   const [clinics, setClinics] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [showCreateProfile, setShowCreateProfile] = useState(true);
+  const [currentEnrollment, setCurrentnrollment] = useState(null);
+  const [loyaltyPoints, setLoyaltyPoints] = useState(null);
 
   const handleFetch = async () => {
     const programeResponse = await getAwardPrograms();
@@ -75,15 +73,29 @@ const HomeScreen = ({ navigation }) => {
         user_type_information: { patient },
       } = user;
       if (patient) {
-        const { patient_number } = patient;
+        const {
+          loyalty_points: {
+            current_program_enrolment,
+            total,
+            total_redeemed_points,
+            redeemable_points,
+          },
+        } = patient;
+        setLoyaltyPoints({
+          total,
+          total_redeemed_points,
+          redeemable_points,
+        });
         if (patient) {
           setShowCreateProfile(false);
+        }
+        if (current_program_enrolment) {
+          setCurrentnrollment(current_program_enrolment);
         }
       }
     }
     handleFetch();
   }, [user]);
-  // console.log((user));
   return (
     <AppSafeArea>
       <View style={styles.screen}>
@@ -146,7 +158,13 @@ const HomeScreen = ({ navigation }) => {
             Dawa Drop, delivering medicine to your door step.
           </Text>
         </View>
-        <LoyaltyPointsCard />
+        {loyaltyPoints && currentEnrollment && (
+          <LoyaltyPointsCard
+            points={loyaltyPoints.redeemable_points}
+            tip={currentEnrollment.tip}
+            level={currentEnrollment.program.name}
+          />
+        )}
 
         <View style={styles.middleContainer}>
           <List.Item
