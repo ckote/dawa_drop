@@ -53,6 +53,7 @@ const FindAccountScreen = ({ navigation }) => {
             } = item;
             return (
               <Card style={styles.listItem} elevation={0} key={index}>
+                {}
                 <Card.Title
                   left={(props) => (
                     <Avatar.Icon
@@ -73,8 +74,8 @@ const FindAccountScreen = ({ navigation }) => {
                         onPress={async () =>
                           await handleInitVerification(request_verification_url)
                         }
-                        disabled={Boolean(has_account)===true}
-                        color={has_account ? colors.primary : colors.medium}
+                        disabled={has_account === true}
+                        color={has_account ? colors.medium : colors.primary}
                       />
                     </>
                   )}

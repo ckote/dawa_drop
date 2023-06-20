@@ -79,7 +79,7 @@ const OrderScreen = ({ navigation, route }) => {
     const appResponse = await getAppointments(token, {
       next_appointment_date_from: moment().format("YYYY-MM-DD"),
       next_appointment_date_to: moment().add(1, "days").format("YYYY-MM-DD"),
-      type: "Refill",
+      type: "Phamacy Refill",
     });
     if (appResponse.ok) {
       setFutureAppointments(
@@ -98,9 +98,6 @@ const OrderScreen = ({ navigation, route }) => {
     latitude: order ? order.latitude : undefined,
     longitude: order ? order.longitude : undefined,
   };
-
-  console.log(prescription);
-
   return (
     <View>
       <View style={styles.header}>
@@ -143,13 +140,14 @@ const OrderScreen = ({ navigation, route }) => {
         prescription={prescription}
         update={Boolean(order)}
       />
-      <AlertDialog
-        visible={
-          Boolean(futureAppointments) === false ||
-          Boolean(prescription) == false
-        }
-        message="Sorry, you are not eligible for making order"
-      />
+      {console.log(futureAppointments, prescription)}
+      {Boolean(futureAppointments) === false ||
+        (Boolean(prescription) == false && (
+          <AlertDialog
+            visible
+            message="Sorry, you are not eligible for making order"
+          />
+        ))}
     </View>
   );
 };
