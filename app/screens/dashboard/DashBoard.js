@@ -1,4 +1,10 @@
-import { StyleSheet, View, Dimensions, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Dimensions,
+  ScrollView,
+  FlatList,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import { useUserContext } from "../../context/hooks";
 import { useHospital, useUser } from "../../api/hooks";
@@ -9,9 +15,10 @@ import {
   PieChart,
   ContributionGraph,
 } from "react-native-chart-kit";
-import { Text } from "react-native-paper";
+import { Chip, Text } from "react-native-paper";
 import {
   calculateBMI,
+  getPastYearsFromNow,
   getTestResultsMonthlyMeans,
   getTriadsMonthlyMeans,
   toPiechartData,
@@ -41,18 +48,18 @@ const DashBoard = ({ navigation }) => {
   const { getUser, getTriads, getTestResults, getAppointments } = useUser();
   const { getSummaryStats } = useHospital();
   const [appointments, setAppointments] = useState([]);
-
+  const [filterParams, setFilterParams] = useState({ year: "" });
   const { user, token } = useUserContext();
 
   const handleFetchTriads = async (url) => {
-    let response = await getTriads(token, {});
+    let response = await getTriads(token, filterParams);
     if (response.ok) {
       setTriads(response.data.results);
     } else {
       console.log("Dashboard: ", response.problem, response.data);
     }
 
-    response = await getTestResults(token, {});
+    response = await getTestResults(token, filterParams);
     if (response.ok) {
       setTestResults(response.data.results);
     } else {
@@ -70,6 +77,10 @@ const DashBoard = ({ navigation }) => {
     if (!user) getUser();
     handleFetchTriads();
   }, []);
+
+  useEffect(() => {
+    handleFetchTriads();
+  }, [filterParams]);
   const {
     monthlyHeights,
     monthlyWeights,
@@ -89,34 +100,52 @@ const DashBoard = ({ navigation }) => {
   });
 
   return (
-    <ScrollView
-      contentContainerStyle={styles.contentStyle}
-      style={styles.screen}
-    >
-      <BMIStatusChart />
-      {triads.length !== 0 && (
-        <NutritionChart
-          bmi={parseFloat(
-            calculateBMI(triads[0].weight, triads[0].height)
-          ).toFixed(2)}
-        />
-      )}
-      <BMIChart x={months} y={monthlyBMI} />
-
-      <AppointmentsFrequencyChart
-        attendanceData={appointments.map(({ created_at }) => ({
-          date: created_at,
-          count: 1,
-        }))}
+    <View style={styles.screen}>
+      <FlatList
+        data={getPastYearsFromNow(6)}
+        horizontal
+        horizontalScrollbarIndicator={false}
+        renderItem={({ item }) => (
+          <Chip
+            style={{ margin: 5 }}
+            selected={filterParams.year === item}
+            onPress={() =>
+              setFilterParams({
+                ...filterParams,
+                year: item === filterParams.year ? "" : item,
+              })
+            }
+          >
+            {item}
+          </Chip>
+        )}
       />
-      <WeightChart x={months} y={monthlyWeights} />
-      <HeightChart x={months} y={monthlyHeights} />
-      <PressureChart x={months} y={monthlypressure} />
-      <ViralLoadChart x={months} y={monthlyViralLoads} />
-      <CD4Chart x={months} y={monthlyCD4Count} />
-      <TempratureChart x={months} y={monthlyTemperature} />
-      <HeartRateChart x={months} y={monthlyHeartRate} />
-    </ScrollView>
+      <ScrollView contentContainerStyle={styles.contentStyle}>
+        <BMIStatusChart />
+        {triads.length !== 0 && (
+          <NutritionChart
+            bmi={parseFloat(
+              calculateBMI(triads[0].weight, triads[0].height)
+            ).toFixed(2)}
+          />
+        )}
+        <BMIChart x={months} y={monthlyBMI} />
+
+        <AppointmentsFrequencyChart
+          attendanceData={appointments.map(({ created_at }) => ({
+            date: created_at,
+            count: 1,
+          }))}
+        />
+        <WeightChart x={months} y={monthlyWeights} />
+        <HeightChart x={months} y={monthlyHeights} />
+        <PressureChart x={months} y={monthlypressure} />
+        <ViralLoadChart x={months} y={monthlyViralLoads} />
+        <CD4Chart x={months} y={monthlyCD4Count} />
+        <TempratureChart x={months} y={monthlyTemperature} />
+        <HeartRateChart x={months} y={monthlyHeartRate} />
+      </ScrollView>
+    </View>
   );
 };
 

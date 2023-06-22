@@ -290,6 +290,17 @@ export const getTestResultsMonthlyMeans = (tests) => {
   };
 };
 
+export const getPastYearsFromNow = (n) => {
+  const currentYear = new Date(Date.now()).getFullYear();
+  const years = [currentYear];
+  let counter = 1;
+  while (counter <= n + 1) {
+    years.push(currentYear - counter);
+    counter++;
+  }
+  return years;
+};
+
 export const toPercentage = (list) => {};
 
 export const calculateBMI = (weight, height) => {
