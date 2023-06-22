@@ -124,7 +124,7 @@ export const useUser = () => {
       headers: getAuthHeader(token),
     });
   const getTestResults = (token, params) =>
-    apiClient.get("medications/test-results/", params, {
+    apiClient.get("medications/patient-tests/", params, {
       headers: getAuthHeader(token),
     });
   return {

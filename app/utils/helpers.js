@@ -231,7 +231,7 @@ const getMonthlyTestResults = (test) => {
     10: { cd4_count: [], viral_load: [] },
     11: { cd4_count: [], viral_load: [] },
   };
-  test.forEach(({ created_at, cd4_count, viral_load }) => {
+  test.forEach(({ cd4_count, viral_load, appointment: { created_at } }) => {
     const month = new Date(created_at).getMonth();
     data[month].cd4_count.push(parseFloat(cd4_count));
     data[month].viral_load.push(parseFloat(viral_load));

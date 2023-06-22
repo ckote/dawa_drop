@@ -53,7 +53,6 @@ const FindAccountScreen = ({ navigation }) => {
             } = item;
             return (
               <Card style={styles.listItem} elevation={0} key={index}>
-                {}
                 <Card.Title
                   left={(props) => (
                     <Avatar.Icon
