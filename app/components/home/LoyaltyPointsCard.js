@@ -1,13 +1,22 @@
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import colors from "../../utils/colors";
 import { Text } from "react-native-paper";
 import IconText from "../display/IconText";
+import { useNavigation } from "@react-navigation/native";
+import routes from "../../navigation/routes";
 
 const LoyaltyPointsCard = ({ points = 0, level = "None", tip = "" }) => {
-  const [awardPrograms, setAwardProgrames] = useState([]);
+  const navigation = useNavigation();
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => {
+        navigation.navigate(routes.USER_NAVIGATION, {
+          screen: routes.USER_PROGRAM_DETAIL_SCREEN,
+        });
+      }}
+    >
       <View style={[styles.row, { justifyContent: "space-between" }]}>
         <Text variant="bodyLarge" style={[styles.levelText, styles.headerText]}>
           Loyalty balance
@@ -33,7 +42,7 @@ const LoyaltyPointsCard = ({ points = 0, level = "None", tip = "" }) => {
           <Text style={styles.text}>{tip}</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

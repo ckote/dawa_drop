@@ -82,7 +82,7 @@ const ProgrameDetailScreen = ({ navigation, route }) => {
         )}
         descriptionStyle={styles.description}
       />
-      <RewardsCards rewards={rewards} backgroundColor={colors.white} />
+      <RewardsCards rewards={rewards} backgroundColor={colors.light2} />
     </ScrollView>
   );
 };

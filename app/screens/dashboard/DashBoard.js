@@ -104,7 +104,7 @@ const DashBoard = ({ navigation }) => {
       <FlatList
         data={getPastYearsFromNow(6)}
         horizontal
-        horizontalScrollbarIndicator={false}
+        showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
           <Chip
             style={{ margin: 5 }}

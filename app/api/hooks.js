@@ -127,6 +127,8 @@ export const useUser = () => {
     apiClient.get("medications/patient-tests/", params, {
       headers: getAuthHeader(token),
     });
+  const getMyPoints = (token) =>
+    apiClient.get("patients/my-points/", {}, { headers: getAuthHeader(token) });
   return {
     changePassword,
     getTestResults,
@@ -151,6 +153,7 @@ export const useUser = () => {
     checkoutDelivery,
     getPendingOrders,
     sycnAccountData,
+    getMyPoints,
   };
 };
 

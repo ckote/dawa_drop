@@ -15,6 +15,7 @@ import { IconButton } from "react-native-paper";
 import { useUser } from "../api/hooks";
 import { useUserContext } from "../context/hooks";
 import { Alert } from "react-native";
+import ProgrameDetailedScreen from "../screens/user/ProgrameDetailedScreen";
 
 const Stack = createStackNavigator();
 
@@ -120,6 +121,13 @@ const UserNavigation = () => {
         component={SettingsScreen}
         options={({ route }) => ({
           title: "Settings",
+        })}
+      />
+      <Screen
+        name={routes.USER_PROGRAM_DETAIL_SCREEN}
+        component={ProgrameDetailedScreen}
+        options={({ route }) => ({
+          title: "Loyalty Proram",
         })}
       />
     </Navigator>
