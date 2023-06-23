@@ -6,7 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import { Avatar, Button, Card, Text } from "react-native-paper";
+import { Avatar, Button, Card, List, Text } from "react-native-paper";
 import React, { useEffect, useState } from "react";
 import { useUserContext } from "../../context/hooks";
 import { useHospital, useUser } from "../../api/hooks";
@@ -88,10 +88,12 @@ const ProgrameDetailedScreen = ({ navigation }) => {
               styles.programCard,
               { justifyContent: "center", alignItems: "center" },
             ]}
-            onPress={() => {navigation.navigate(routes.USER_NAVIGATION, {
+            onPress={() => {
+              navigation.navigate(routes.USER_NAVIGATION, {
                 screen: routes.PROGRAM_DETAIL_SCREEN,
-                params: item
-            })}}
+                params: item,
+              });
+            }}
           >
             <View style={styles.programeImageContainer}>
               <Image
@@ -175,6 +177,20 @@ const ProgrameDetailedScreen = ({ navigation }) => {
           subtitleNumberOfLines={3}
           subtitleStyle={styles.subTitle}
         />
+      </Card>
+      <Card style={styles.workingCard}>
+        <Card.Title title="FAQ" titleVariant="headlineMedium" />
+        <List.AccordionGroup>
+          <List.Accordion title="What are loyalty points?" id="1">
+            <List.Item title="Answer for What are loyalty points?" />
+          </List.Accordion>
+          <List.Accordion title="What How do i earn points?" id="2">
+            <List.Item title="Ansewer for What How do i earn points?" />
+          </List.Accordion>
+          <List.Accordion title="Other questions?" id="3">
+            <List.Item title="Ansewer for Other questions?" />
+          </List.Accordion>
+        </List.AccordionGroup>
       </Card>
     </ScrollView>
   );
