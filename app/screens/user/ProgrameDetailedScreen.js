@@ -18,9 +18,10 @@ import routes from "../../navigation/routes";
 
 const ProgrameDetailedScreen = ({ navigation }) => {
   const { token } = useUserContext();
-  const { getAwardPrograms } = useHospital();
+  const { getAwardPrograms, getFAQs } = useHospital();
   const { getMyPoints } = useUser();
   const [programs, setPrograms] = useState([]);
+  const [faqs, setFaqs] = useState([]);
   const [myPoints, setMypoints] = useState();
 
   const handleFetch = async () => {
@@ -40,6 +41,16 @@ const ProgrameDetailedScreen = ({ navigation }) => {
     } else {
       console.log(
         "Programe detailed screen points info fetch",
+        response.problem,
+        response.data
+      );
+    }
+    response = await getFAQs();
+    if (response.ok) {
+      setFaqs(response.data.results);
+    } else {
+      console.log(
+        "Programe detailed screen points faq fetch",
         response.problem,
         response.data
       );
@@ -181,15 +192,11 @@ const ProgrameDetailedScreen = ({ navigation }) => {
       <Card style={styles.workingCard}>
         <Card.Title title="FAQ" titleVariant="headlineMedium" />
         <List.AccordionGroup>
-          <List.Accordion title="What are loyalty points?" id="1">
-            <List.Item title="Answer for What are loyalty points?" />
-          </List.Accordion>
-          <List.Accordion title="What How do i earn points?" id="2">
-            <List.Item title="Ansewer for What How do i earn points?" />
-          </List.Accordion>
-          <List.Accordion title="Other questions?" id="3">
-            <List.Item title="Ansewer for Other questions?" />
-          </List.Accordion>
+          {faqs.map(({ question, answer, id }) => (
+            <List.Accordion title={question} id={id} key={id}>
+              <List.Item description={answer} descriptionNumberOfLines={100} />
+            </List.Accordion>
+          ))}
         </List.AccordionGroup>
       </Card>
     </ScrollView>

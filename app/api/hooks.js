@@ -167,7 +167,9 @@ export const useHospital = () => {
   const getDeliveryTimeSlots = (params) =>
     apiClient.get("delivery-time-slots/");
   const getSummaryStats = (params) => apiClient.get("patients/summary/");
+  const getFAQs = (params) => apiClient.get("programs/faq/", params);
   return {
+    getFAQs,
     getSummaryStats,
     getAwardPrograms,
     getAwardRewards,
