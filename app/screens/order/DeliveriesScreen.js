@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, SectionList, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SectionList,
+  Alert,
+  TouchableOpacity,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { useUserContext } from "../../context/hooks";
 import { useDelivery, useUser } from "../../api/hooks";
@@ -107,7 +114,16 @@ const DeliveriesScreen = ({ navigation }) => {
         renderItem={({ item }) => {
           const { delivery_id, created_at, status, phone_number } = item;
           return (
-            <Card style={styles.listItem}>
+            // <TouchableOpacity>
+            <Card
+              style={styles.listItem}
+              onPress={() => {
+                navigation.navigate(routes.ORDER_NAVIGATION, {
+                  screen: routes.ORDER_AGENT_ORDER_DETAIL,
+                  params: item,
+                });
+              }}
+            >
               <Card.Title
                 title={delivery_id}
                 subtitle={moment(created_at).format("ddd Do MMMM YYYY")}
@@ -189,6 +205,7 @@ const DeliveriesScreen = ({ navigation }) => {
                 )}
               </Card.Actions>
             </Card>
+            //</TouchableOpacity>
           );
         }}
       />
