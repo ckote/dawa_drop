@@ -16,6 +16,7 @@ import { useUser } from "../api/hooks";
 import { useUserContext } from "../context/hooks";
 import { Alert } from "react-native";
 import ProgrameDetailedScreen from "../screens/user/ProgrameDetailedScreen";
+import PointsHistory from "../screens/user/PointsHistory";
 
 const Stack = createStackNavigator();
 
@@ -128,6 +129,13 @@ const UserNavigation = () => {
         component={ProgrameDetailedScreen}
         options={({ route }) => ({
           title: "Loyalty Proram",
+        })}
+      />
+      <Screen
+        name={routes.USER_POINTS_HISTORY_SCREEN}
+        component={PointsHistory}
+        options={({ route }) => ({
+          title: "Points History",
         })}
       />
     </Navigator>

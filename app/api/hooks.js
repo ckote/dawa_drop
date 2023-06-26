@@ -129,6 +129,12 @@ export const useUser = () => {
     });
   const getMyPoints = (token) =>
     apiClient.get("patients/my-points/", {}, { headers: getAuthHeader(token) });
+  const getMyPointsHistory = (token) =>
+    apiClient.get(
+      "patients/points-history/",
+      {},
+      { headers: getAuthHeader(token) }
+    );
   return {
     changePassword,
     getTestResults,
@@ -154,6 +160,7 @@ export const useUser = () => {
     getPendingOrders,
     sycnAccountData,
     getMyPoints,
+    getMyPointsHistory,
   };
 };
 
@@ -196,5 +203,6 @@ export const useDelivery = () => {
     apiClient.get("orders/deliveries/", params, {
       headers: getAuthHeader(token),
     });
+
   return { getDeliveryRequests, getDeliveries };
 };

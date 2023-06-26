@@ -80,6 +80,11 @@ const ProgrameDetailedScreen = ({ navigation }) => {
               icon="chevron-right"
               left={false}
               size={25}
+              onPress={() =>
+                navigation.navigate(routes.USER_NAVIGATION, {
+                  screen: routes.USER_POINTS_HISTORY_SCREEN,
+                })
+              }
             />
           </View>
         </View>
