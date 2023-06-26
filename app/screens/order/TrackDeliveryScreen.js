@@ -107,7 +107,7 @@ const TrackDeliveryScreen = ({ navigation, route }) => {
             longitudeDelta: 0.0421,
           }}
         >
-          <Marker coordinate={current_location}>
+          {/* <Marker coordinate={current_location}>
             <Image
               source={require("../../assets/hospital.png")}
               style={{ width: 60, height: 60 }}
@@ -115,7 +115,7 @@ const TrackDeliveryScreen = ({ navigation, route }) => {
             <Callout>
               <Text>Agent start Location</Text>
             </Callout>
-          </Marker>
+          </Marker> */}
           {realTimeLocation && (
             <Marker coordinate={realTimeLocation}>
               <Image

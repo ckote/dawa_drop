@@ -42,7 +42,7 @@ const DeliveryRequest = ({ request: deliveryRequests, onAcceptRequest }) => {
               longitudeDelta: 0.0421,
             }}
           >
-            <Marker coordinate={location} title="Your current Location" />
+            {/* <Marker coordinate={location} title="Your current Location" /> */}
             {deliveryRequests.map((request_, index) => {
               const { destination, address, delivery_mode, time_slot } =
                 request_;

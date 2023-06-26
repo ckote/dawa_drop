@@ -10,7 +10,7 @@ const DeliveryRequestCallout = ({ request }) => {
   return (
     <View>
       <View style={styles.container}>
-        <Avatar.Icon icon="account" />
+        <Avatar.Icon icon="account" size={25} />
         <View style={styles.contentContainer}>
           {delivery_mode && (
             <View style={styles.row}>

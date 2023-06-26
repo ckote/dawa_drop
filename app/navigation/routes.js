@@ -40,6 +40,7 @@ export default Object.freeze({
   USER_SETTINGS_SCREEN: "Settings Screen",
   ORDER_AGENT_DELIVERY_SCREEN: "Delivery Screen",
   ORDER_AGENT_DELIVERY_ROUTE_SCREEN: "DeliveryRoute Screen",
+  ORDER_AGENT_ORDER_DETAIL: "AgentOrderDetail Screen",
   TAB_AGENT_HOME_SCREEN: "Agent Home",
   USER_PROGRAM_DETAIL_SCREEN: "Programe Detetailed screen",
   USER_POINTS_HISTORY_SCREEN: "PointsHistory screen",

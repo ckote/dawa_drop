@@ -10,6 +10,7 @@ import PendingOrdersScreen from "../screens/order/PendingOrdersScreen";
 import TrackDeliveryScreen from "../screens/order/TrackDeliveryScreen";
 import DeliveriesScreen from "../screens/order/DeliveriesScreen";
 import AgentDeliveryRouteScreen from "../screens/order/AgentDeliveryRouteScreen";
+import AgentOrderDetailScreen from "../screens/user/AgentOrderDetailScreen";
 
 const Stack = createStackNavigator();
 
@@ -61,6 +62,13 @@ const OrderNavigation = () => {
         component={AgentDeliveryRouteScreen}
         options={{
           title: "",
+        }}
+      />
+      <Screen
+        name={routes.ORDER_AGENT_ORDER_DETAIL}
+        component={AgentOrderDetailScreen}
+        options={{
+          title: "Delivery Detail",
         }}
       />
     </Navigator>
