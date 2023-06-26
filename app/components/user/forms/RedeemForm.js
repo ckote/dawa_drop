@@ -139,12 +139,15 @@ const RedeemForm = ({ navigation, route }) => {
                   <Button
                     style={styles.btn}
                     textColor={colors.primary}
-                    icon="lock-off"
+                    icon={
+                      isEligible(program, point_value) ? "lock" : "lock-off"
+                    }
                     mode="outlined"
                     disabled={isEligible(program, point_value) == false}
                     onPress={async () => {
                       await handleRedeem(item);
                     }}
+                    
                   >
                     Redeeme
                   </Button>
