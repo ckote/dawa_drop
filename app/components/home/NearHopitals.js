@@ -2,8 +2,9 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Button, IconButton } from "react-native-paper";
 import useLocation from "../../hooks/useLocation";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, Callout } from "react-native-maps";
 import colors from "../../utils/colors";
+import { screenWidth } from "../../utils/contants";
 
 // {"latitude": -1.1018825, "longitude": 37.0060431}
 
@@ -30,21 +31,38 @@ const NearHopitals = ({ hospitals, setVisible }) => {
             }}
           >
             <Marker coordinate={location} title="Your current Location" />
-            {hospitals.map(({ name, longitude, latitude, address }, index) => (
-              <Marker
-                coordinate={{
-                  latitude: parseFloat(latitude),
-                  longitude: parseFloat(longitude),
-                }}
-                title={name}
-                key={index}
-              >
-                <Image
-                  source={require("../../assets/hospitalmarker.png")}
-                  style={{ width: 60, height: 60 }}
-                />
-              </Marker>
-            ))}
+            {hospitals.map(
+              (
+                {
+                  name,
+                  longitude,
+                  latitude,
+                  address,
+                  type: { name: typeName },
+                },
+                index
+              ) => (
+                <Marker
+                  coordinate={{
+                    latitude: parseFloat(latitude),
+                    longitude: parseFloat(longitude),
+                  }}
+                  key={index}
+                >
+                  <Image
+                    source={require("../../assets/hospitalmarker.png")}
+                    style={{ width: 60, height: 60 }}
+                  />
+                  <Callout style={styles.callOut} onPress={async () => {}}>
+                    <View style={{ width: screenWidth * 0.5 }}>
+                      <Text>Facility: {name}</Text>
+                      <Text>Type: {typeName}</Text>
+                      <Text>{`Address: ${address}`}</Text>
+                    </View>
+                  </Callout>
+                </Marker>
+              )
+            )}
           </MapView>
         </View>
       )}
