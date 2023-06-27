@@ -8,6 +8,7 @@ import { Avatar, Button, Card, IconButton, List } from "react-native-paper";
 import colors from "../../utils/colors";
 import routes from "../../navigation/routes";
 import IconText from "../../components/display/IconText";
+import { screenWidth } from "../../utils/contants";
 
 const FindAccountScreen = ({ navigation }) => {
   const [search, setSearch] = useState("");
@@ -45,10 +46,9 @@ const FindAccountScreen = ({ navigation }) => {
           data={searchResults}
           renderItem={({ item, index }) => {
             const {
-              email,
+              identifiers,
               phone_number,
               request_verification_url,
-              patient_number,
               has_account,
             } = item;
             return (
@@ -62,29 +62,36 @@ const FindAccountScreen = ({ navigation }) => {
                       style={styles.icon}
                     />
                   )}
-                  title={`CCC: ${patient_number}`}
-                  right={(props) => (
-                    <>
-                      <IconText
-                        {...props}
-                        icon="chevron-right"
-                        text="Verify"
-                        left={false}
-                        onPress={async () =>
-                          await handleInitVerification(request_verification_url)
-                        }
-                        disabled={has_account === true}
-                        color={has_account ? colors.medium : colors.primary}
-                      />
-                    </>
-                  )}
+                  title="Patient Information"
                 />
+                <Card.Content>
+                  <View style={styles.info}>
+                    {identifiers.map(({ id_type, id_value }, id_index) => (
+                      <List.Item
+                        key={id_index}
+                        title={id_type}
+                        description={id_value}
+                        style={styles.idItem}
+                      />
+                    ))}
+                    <List.Item
+                      title="Phone Number"
+                      description={phone_number ? phone_number : "None"}
+                      style={styles.idItem}
+                    />
+                  </View>
+                </Card.Content>
                 <Card.Actions>
-                  <Button icon="phone" textColor={colors.primary}>
-                    {phone_number}
-                  </Button>
-                  <Button icon="email" buttonColor={colors.primary}>
-                    {email}
+                  <Button
+                    icon="check-decagram"
+                    onPress={async () =>
+                      await handleInitVerification(request_verification_url)
+                    }
+                    disabled={has_account === true}
+                    buttonColor={colors.white}
+                    textColor={has_account ? colors.medium : colors.primary}
+                  >
+                    {"Verify yourself now"}
                   </Button>
                 </Card.Actions>
               </Card>
@@ -119,5 +126,15 @@ const styles = StyleSheet.create({
   results: {
     flex: 1,
     marginVertical: 10,
+  },
+  info: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+  },
+  idItem: {
+    width: screenWidth * 0.4,
+    margin: 2,
+    backgroundColor: colors.light2,
   },
 });
