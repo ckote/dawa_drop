@@ -30,7 +30,6 @@ const TrackDeliveryScreen = ({ navigation, route }) => {
   const { getUserInfo } = useUser();
   const subscriptionRef = useRef(null);
   const webSocketRef = useRef(null);
-  const [showError, setShowError] = useState(false);
   const {
     delivery: {
       destination,

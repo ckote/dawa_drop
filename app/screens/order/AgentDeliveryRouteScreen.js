@@ -43,6 +43,7 @@ const AgentDeliveryRouteScreen = ({ navigation, route }) => {
   const { getUserInfo } = useUser();
   const subscriptionRef = useRef(null);
   const webSocketRef = useRef(null);
+  const [cancel, setCancel] = useState(false);
 
   const handleAgentWebSocket = async () => {
     const subscription = await watchPositionAsync(
@@ -70,7 +71,11 @@ const AgentDeliveryRouteScreen = ({ navigation, route }) => {
   const simulateAgentMovemant = async () => {
     if (geoJson) {
       let _routes = geoJson["features"][0]["geometry"]["coordinates"];
+      setPolylineCoords([]);
       for (const _route of _routes) {
+        if (cancel) {
+          break;
+        }
         if (webSocketRef.current.readyState !== WebSocket.CONNECTING) {
           webSocketRef.current.send(
             JSON.stringify({ latitude: _route[1], longitude: _route[0] })
@@ -171,7 +176,7 @@ const AgentDeliveryRouteScreen = ({ navigation, route }) => {
                   source={require("../../assets/rec.png")}
                   style={{ width: 60, height: 60 }}
                 />
-                <Callout>
+                <Callout onPress={() => setCancel(true)}>
                   <Text>Your current Location</Text>
                 </Callout>
               </Marker>
