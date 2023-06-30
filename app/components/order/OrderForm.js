@@ -122,4 +122,9 @@ const styles = StyleSheet.create({
   mordal: {
     backgroundColor: "red",
   },
+  listItem: {
+    backgroundColor: colors.white,
+    marginBottom: 5,
+    marginHorizontal: 5,
+  },
 });
