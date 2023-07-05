@@ -8,7 +8,7 @@ import colors from "../../../utils/colors";
 import routes from "../../../navigation/routes";
 
 const AccountVerificationForm = ({ navigation, route }) => {
-  const { message, verify_url: url } = route.params;
+  const { message, verification_url: url } = route.params;
   const { token } = useUserContext();
   const { postUserInfo, getUser } = useUser();
   const [code, setCode] = useState("");

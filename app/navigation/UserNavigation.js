@@ -100,7 +100,7 @@ const UserNavigation = () => {
         name={routes.USER_FIND_ACCOUNT_SCREEN}
         component={FindAccountScreen}
         options={({ route }) => ({
-          title: "Enter CCC number",
+          title: "Verify yourself",
         })}
       />
       <Screen
